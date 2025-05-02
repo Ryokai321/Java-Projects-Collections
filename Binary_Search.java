@@ -1,40 +1,40 @@
-public class Main{
+public class BinarySearch {
+    public static int binarySearch(int[] arr, int target) {
+        int left = 0;
+        int right = arr.length - 1;
 
-    public static int binarySearch(int array[], int left, int right, int item){
+        while (left <= right) {
+            int mid = left + (right - left) / 2;
 
-        if (right >= left){
+            // If the target is found at the middle index, return it.
+            if (arr[mid] == target) {
+                return mid;
+            }
 
-            // calculation of new mid
-            int mid = left + (right - left)/2;
-
-            // returns position where found
-            if (array[mid] == item)
-                return mid+1;
-
-            // goes to recursive calls in left half
-            if (array[mid] > item)
-                return binarySearch(array, left, mid-1, item);
-
-                // goes to recursive calls in right half
-            else
-                return binarySearch(array, mid+1, right, item);
+            // If the target is smaller, search the left half.
+            if (arr[mid] > target) {
+                right = mid - 1;
+            }
+            // If the target is larger, search the right half.
+            else {
+                left = mid + 1;
+            }
         }
-        // if element is not found we return -1
-        else
-            return -1;
+
+        // If the target element is not found, return -1.
+        return -1;
     }
-    public static void main(String args[]){
 
-        int[ ] array = {10, 20, 30, 40, 50, 60, 70, 80};
-        int item = 70;
-        int size = array.length;
+    public static void main(String[] args) {
+        int[] sortedArray = {1, 3, 5, 7, 9, 11, 13, 15};
+        int targetElement = 7;
 
-        int position = binarySearch(array, 0, size-1, item);
+        int result = binarySearch(sortedArray, targetElement);
 
-        if(position == -1)
-            System.out.println("Element not found");
-        else
-            System.out.println("The value " + item + " found at position: " + position);
-
+        if (result != -1) {
+            System.out.println("Element " + targetElement + " found at index " + result + ".");
+        } else {
+            System.out.println("Element " + targetElement + " not found in the array.");
+        }
     }
 }
